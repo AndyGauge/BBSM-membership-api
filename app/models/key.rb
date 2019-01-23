@@ -12,6 +12,7 @@ class Key < ApplicationRecord
   end
 
   def self.valid? (code)
-    Time.now - (Key.find_by_code code).created_at < (60*60*24)
+    k = Key.find_by_code code
+    k && Time.now - k.created_at < (60*60*24)
   end
 end

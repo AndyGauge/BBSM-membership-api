@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :key, only: [:create]
       resource :payment, only: [:create]
+      resource :event, only: [:create]
     end
   end
 end

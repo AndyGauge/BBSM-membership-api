@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_005551) do
+ActiveRecord::Schema.define(version: 2019_01_23_163259) do
 
   create_table "keys", force: :cascade do |t|
     t.string "code"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_005551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "payment_id"
+    t.string "stripe_id"
     t.index ["payment_id"], name: "index_striped_customers_on_payment_id"
   end
 
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_005551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "payment_id"
+    t.string "stripe_id"
     t.index ["payment_id"], name: "index_striped_plans_on_payment_id"
     t.index ["striped_product_id"], name: "index_striped_plans_on_striped_product_id"
   end
@@ -59,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_005551) do
     t.string "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_id"
   end
 
   create_table "striped_subscriptions", force: :cascade do |t|
@@ -68,9 +71,18 @@ ActiveRecord::Schema.define(version: 2019_01_22_005551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "payment_id"
+    t.string "stripe_id"
     t.index ["payment_id"], name: "index_striped_subscriptions_on_payment_id"
     t.index ["striped_customer_id"], name: "index_striped_subscriptions_on_striped_customer_id"
     t.index ["striped_plan_id"], name: "index_striped_subscriptions_on_striped_plan_id"
+  end
+
+  create_table "striped_webhooks", force: :cascade do |t|
+    t.string "event"
+    t.integer "striped_subscription_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["striped_subscription_id"], name: "index_striped_webhooks_on_striped_subscription_id"
   end
 
 end

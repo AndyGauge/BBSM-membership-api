@@ -21,8 +21,8 @@ class Striped::Product < ApplicationRecord
         response = e.message
         update(response: response)
       else
-        update(response: response, stripe_id: JSON.parse(response)["id"])
-      end      
+        update(response: response, stripe_id: response["id"])
+      end
     end
   end
 end

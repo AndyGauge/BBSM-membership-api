@@ -9,9 +9,9 @@ class Striped::Subscription < ApplicationRecord
     {
       customer: customer.stripe_id,
       items:
-      {
+      [
         plan: plan.stripe_id
-      }
+      ]
     }
   end
 
@@ -23,7 +23,7 @@ class Striped::Subscription < ApplicationRecord
         response = e.message
         update(response: response)
       else
-        update(response: response, stripe_id: JSON.parse(response)["id"])
+        update(response: response, stripe_id: response["id"])
       end
     end
   end
