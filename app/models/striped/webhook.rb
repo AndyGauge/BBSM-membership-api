@@ -6,6 +6,6 @@ class Striped::Webhook < ApplicationRecord
 
   def find_customer
     return false unless cust = event.dig("object", "customer")
-    customer = Striped::Customer.find_by_stripe_id cust
+    self.customer = Striped::Customer.find_by_stripe_id cust
   end
 end
