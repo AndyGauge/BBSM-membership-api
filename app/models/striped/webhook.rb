@@ -7,5 +7,14 @@ class Striped::Webhook < ApplicationRecord
   def find_customer
     return false unless cust = event.dig("object", "customer")
     self.customer = Striped::Customer.find_by_stripe_id cust
+
+    if event.dig("object", "object") == "charge"
+      Striped::Charge.create(
+        customer:    self.customer,
+        amount:      event.dig("object", "amount"),
+        receipt_url: event.dig("object", "receipt_url"),
+        last4:       event.dig("object", "source", "last4")
+      )
+    end
   end
 end

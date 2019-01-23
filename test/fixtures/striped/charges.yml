@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  striped_customer: one
+  amount: MyString
+  receipt_url: MyString
+  last4: MyString
+
+two:
+  striped_customer: two
+  amount: MyString
+  receipt_url: MyString
+  last4: MyString
