@@ -4,7 +4,9 @@ class Striped::Webhook < ApplicationRecord
   before_create :find_customer
 
   def parsed_event
-    @event ||= JSON.parse(event)
+    return @event if @event
+    @event= JSON.parse(event) if event.is_a? String
+    @event = event
   end
 
   def find_customer
