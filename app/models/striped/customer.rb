@@ -23,6 +23,7 @@ class Striped::Customer < ApplicationRecord
         update(response: response, stripe_id: response["id"])
       end
     end
+    send_to_civi
   end
 
   def send_to_civi
@@ -31,6 +32,6 @@ class Striped::Customer < ApplicationRecord
     cc.json["first_name"] = names[0]
     cc.json["last_name"] = names[1..-1].join(" ")
     cc.make_request
-    update(civi_id => cc.contact_id)
+    update(:civi_id => cc.contact_id)
   end
 end
