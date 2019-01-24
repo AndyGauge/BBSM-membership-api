@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_210610) do
+ActiveRecord::Schema.define(version: 2019_01_24_001203) do
+
+  create_table "civi_apis", force: :cascade do |t|
+    t.string "request"
+    t.string "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "keys", force: :cascade do |t|
     t.string "code"
@@ -32,6 +39,16 @@ ActiveRecord::Schema.define(version: 2019_01_23_210610) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "striped_charges", force: :cascade do |t|
+    t.integer "striped_customer_id"
+    t.string "amount"
+    t.string "receipt_url"
+    t.string "last4"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["striped_customer_id"], name: "index_striped_charges_on_striped_customer_id"
+  end
+
   create_table "striped_customers", force: :cascade do |t|
     t.string "email"
     t.string "description"
@@ -40,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_01_23_210610) do
     t.datetime "updated_at", null: false
     t.integer "payment_id"
     t.string "stripe_id"
+    t.string "civi_id"
     t.index ["payment_id"], name: "index_striped_customers_on_payment_id"
   end
 

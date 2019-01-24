@@ -24,4 +24,13 @@ class Striped::Customer < ApplicationRecord
       end
     end
   end
+
+  def send_to_civi
+    names = payment.name.split(" ")
+    cc = CiviContactCreator.new
+    cc.json["first_name"] = names[0]
+    cc.json["last_name"] = names[1..-1].join(" ")
+    cc.make_request
+    update(civi_id => cc.contact_id)
+  end
 end
