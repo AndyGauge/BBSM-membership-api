@@ -5,9 +5,14 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  encoding: utf8
+  username: bbsm
+  password: <%= ENV.fetch("RAILS_DB_PASSWD") %>
+  host: 127.0.0.1
+  port: 3306
 
 development:
   <<: *default
@@ -22,4 +27,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: bbsm_api_prod
